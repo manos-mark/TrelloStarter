@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- import MD icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
+    <!-- import Materialize css -->
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <!-- import custom css -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Trello Starter</title>
+</head>
+
+<div id='body' class="teal lighten-5">
+    <div class="container">
+		<div class="row grid" id="main">
+			
+			<!-- Quote Count -->
+			<h3 class="col s12 teal-text text-lighten-4">Quotes: 
+				<span id="count"></span>
+			</h2>
+
+			<!-- CARD -->
+			<script id="entry-template" type="text/x-handlebars-template">
+				<div id="{{id}}" class="offset-s1 col s10 m6 l4 xl3 cell">
+					<div class="card hoverable">
+						<div class="card-image">
+							<img class="resizeimg" src="{{image}}">
+							<div class="idDiv teal-text text-lighten-2">#{{id}}</div>
+							<span class="card-title teal-text text-accent-3">{{title}}</span>
+
+					    	<div class="fixed-action-btn ">
+								<a class="btn-floating teal darken-4 waves-effect waves-light z-depth-5 btn-large">
+									<i class="large material-icons">mode_edit</i>
+								</a>
+								<ul>
+									<li><a class="modal-triger btn-floating red z-depth-5"><i class="material-icons">delete</i></a></li>
+							        <li><a class="modal-triger btn-floating yellow darken-1 z-depth-5"><i class="material-icons">format_quote</i></a></li>
+						    	</ul>
+					    	</div>
+						</div>
+						<div class="card-content teal lighten-4">
+					  		<p>{{body}}</p>
+						</div>
+					</div>
+				</div>
+			</script> 
+
+		</div>
+
+
+		<!-- Delete Modal Structure -->
+		<div id="modalDelete" class="modal teal lighten-4">
+			<div class="modal-content">
+  				<h4 class="teal-text darken-4">Delete Card</h4>
+  				<p>If you continue, the current card will be deleted permanently!</p>
+			</div>
+		    <div class="modal-footer teal lighten-5">
+		    	<a id="deleteButton" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+		    	<a href="#!" class="red white-text modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		    </div>
+		</div>
+
+
+
+		<!-- Format Modal Structure -->
+		<div id="modalFormat" class="modal teal lighten-4">
+			<div class="modal-content">
+		      	<h4 class="teal-text darken-4">Format a Card</h4>
+
+		      	<div class="row">
+		        	<form class="col s12">
+		          		<div class="row modal-form-row">
+		            		<div class="input-field offset-s1 col s10">
+		              			<input value="image_value" id="image_url" type="text" class="validate">
+		              			<label for="image_url">Image URL</label>
+		            		</div>
+		          		</div>
+		          		<div class="row">
+				            <div class="input-field offset-s1 col s10">
+				            	<input value="author_value" id="image_title" type="text" class="validate">
+				              	<label for="image_title">Author</label>
+				            </div>
+		          		</div>       
+						<div class="row">
+							<div class="input-field offset-s1 col s10">
+						  		<textarea id="image_description" type="text" class="materialize-textarea validate">Not Found</textarea>
+							  	<label for="image_description">Quote</label>
+							</div>
+						</div>             
+		        	</form>
+		      	</div>
+		    </div>
+		    <div class="modal-footer teal lighten-5">
+				<a id="formatButton" href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+				<a href="#!" class="red white-text modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		    </div>
+		</div>    
+
+
+
+		<!-- Add New Card Modal Structure -->
+		<div id="modalNew" class="modal teal lighten-4">
+			<div class="modal-content">
+		      	<h4 class="teal-text darken-4">Add a New Card</h4>
+
+		      	<div class="row">
+		        	<form class="col s12">
+		          		<div class="row modal-form-row">
+		            		<div class="input-field offset-s1 col s10">
+		              			<input value="" id="add_image_url" type="text" class="validate">
+		              			<label for="add_image_url">Image URL</label>
+		            		</div>
+		          		</div>
+		          		<div class="row">
+				            <div class="input-field offset-s1 col s10">
+				            	<input value="" id="add_image_title" type="text" class="validate">
+				              	<label for="add_image_title">Author</label>
+				            </div>
+		          		</div>       
+						<div class="row">
+							<div class="input-field offset-s1 col s10">
+						  		<textarea id="add_image_description" type="text" class="materialize-textarea validate"></textarea>
+							  	<label for="add_image_description">Quote</label>
+							</div>
+						</div>             
+		        	</form>
+		      	</div>
+		    </div>
+		    <div class="modal-footer teal lighten-5">
+				<a href="#!" id='createButton' class="modal-action modal-close waves-effect waves-green btn-flat">Submit</a>
+				<a href="#!" class="red white-text modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+		    </div>
+		</div>     
+
+		<!-- Add new card Button -->
+		<div id="my-fixed-button" class="fixed-action-btn">
+			<a class="btn-floating btn-large waves-effect waves-light red z-depth-5"><i class="material-icons">add</i></a>
+		</div>
+	</div>
+
+	<!-- Pagination -->
+	<ul class="pagination center-align col s12">
+    	<li id="leftArrow" class="waves-effect"><a href="#"><i class="material-icons">chevron_left</i></a></li>
+    	<li class="active page waves-effect"><a id='p1' href="#">1</a></li>
+	</ul>
+    <!-- ##################################################################################################### -->
+    <!-- ## Leave these scripts as the last part of body tag. Do NOT place any HTML content below this line ## -->
+    <!-- ##################################################################################################### -->
+    <!-- import Handlebars js script-->
+    <script type="text/javascript" src="js/handlebars-v4.0.11.js"></script>
+    <!-- import jQuery -->
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>    
+    <!-- import Materialize js script -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- import custom js script-->
+    <script type="text/javascript" src="js/script.js"></script>
+     <!--
+         import Trello client.js
+         script to authenticate yourself in order to use Trello API
+    -->
+    <script src="https://trello.com/1/client.js?key=806939987b9834d83a8eff9a716e49b7&token=ea74a66fe484ec83a9c5a444c512c5bc6bd61ec6a72c9922674044dacf7c706f"></script> 
+</div>
+</html>
