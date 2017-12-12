@@ -16,39 +16,40 @@
 
 <div id='body' class="teal lighten-5">
     <div class="container">
-		<div class="row grid" id="main">
+		<div class="row" id="main">
 			
 			<!-- Quote Count -->
 			<h3 class="col s12 teal-text text-lighten-4">Quotes: 
 				<span id="count"></span>
-			</h2>
+			</h3>
 
 			<!-- CARD -->
-			<script id="entry-template" type="text/x-handlebars-template">
-				<div id="{{id}}" class="offset-s1 col s10 m6 l4 xl3 cell">
-					<div class="card hoverable">
-						<div class="card-image">
-							<img class="resizeimg" src="{{image}}">
-							<div class="idDiv teal-text text-lighten-2">#{{id}}</div>
-							<span class="card-title teal-text text-accent-3">{{title}}</span>
+			<div class="cards">
+				<script id="entry-template" type="text/x-handlebars-template">
+					<div id="{{id}}" class="cell offset-s1 col s10 m6 l4 xl3">
+						<div class="card hoverable">
+							<div class="card-image">
+								<img class="resizeimg" src="{{image}}">
+								<div class="idDiv teal-text text-lighten-2">#{{id}}</div>
+								<span class="card-title teal-text text-accent-3">{{title}}</span>
 
-					    	<div class="fixed-action-btn ">
-								<a class="btn-floating teal darken-4 waves-effect waves-light z-depth-5 btn-large">
-									<i class="large material-icons">mode_edit</i>
-								</a>
-								<ul>
-									<li><a class="modal-triger btn-floating red z-depth-5"><i class="material-icons">delete</i></a></li>
-							        <li><a class="modal-triger btn-floating yellow darken-1 z-depth-5"><i class="material-icons">format_quote</i></a></li>
-						    	</ul>
-					    	</div>
+						    	<div class="fixed-action-btn ">
+									<a class="btn-floating teal darken-4 waves-effect waves-light z-depth-5 btn-large">
+										<i class="large material-icons">mode_edit</i>
+									</a>
+									<ul>
+										<li><a class="modal-triger btn-floating red z-depth-5"><i class="material-icons">delete</i></a></li>
+								        <li><a class="modal-triger btn-floating yellow darken-1 z-depth-5"><i class="material-icons">format_quote</i></a></li>
+							    	</ul>
+						    	</div>
+							</div>
+							<div class="card-content teal lighten-4">
+						  		<p>{{body}}</p>
+							</div>
 						</div>
-						<div class="card-content teal lighten-4">
-					  		<p>{{body}}</p>
-						</div>
-					</div>
-				</div>
-			</script> 
-
+					</div>	
+				</script> 
+			</div>
 		</div>
 
 
@@ -153,7 +154,9 @@
     <!-- import Handlebars js script-->
     <script type="text/javascript" src="js/handlebars-v4.0.11.js"></script>
     <!-- import jQuery -->
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>    
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script> 
+    <!-- import Masonry js script -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>   
     <!-- import Materialize js script -->
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <!-- import custom js script-->
@@ -163,5 +166,6 @@
          script to authenticate yourself in order to use Trello API
     -->
     <script src="https://trello.com/1/client.js?key=806939987b9834d83a8eff9a716e49b7&token=ea74a66fe484ec83a9c5a444c512c5bc6bd61ec6a72c9922674044dacf7c706f"></script> 
+    
 </div>
 </html>
